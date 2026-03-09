@@ -1,6 +1,6 @@
 import React from "react";
 import "./home.css";
-import { Tag } from "lucide-react";
+import { Tag, FileInput} from "lucide-react";
 
 function Home() {
   return (
@@ -14,7 +14,7 @@ function Home() {
       <div className="empty-state">
 
         <div className="empty-icon">
-          📄
+          <FileInput size={48}/>
         </div>
 
         <h2>No Tags Found</h2>
