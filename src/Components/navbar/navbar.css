@@ -1,0 +1,94 @@
+/* Navbar Container */
+
+.navbar {
+  height: 60px;
+  width: 100%;
+  background: #eef1f4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Logo */
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #5a6f8f;
+}
+
+/* Menu Container */
+
+.menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 22px;
+  margin: 0;
+  padding: 6px 18px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e3e6ea;
+}
+
+/* Menu items */
+
+.menu li {
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.menu li:hover {
+  color: #3a6ff7;
+}
+
+/* Home icon button */
+
+.menu li:first-child {
+  background: #3a6ff7;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Right Icons */
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #555;
+}
+
+.nav-icons a {
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.nav-icons a:hover {
+  color: #3a6ff7;
+}
+
+/* Profile Circle */
+
+.profile {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #e9edf3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #556;
+}

@@ -1,24 +1,17 @@
 import React from 'react'
-import { Menu, House} from 'lucide-react'
-import './sidebar.css'
 
-const Sidebar = () => {
+
+function Sidebar() {
   return (
-    <div className='sidebar'>
-        <div className="top">
-            <header className='menu-header'>
-                <Menu />
-            </header>
-            <ul>
-                <li>
-                    <a href="#">  <House /></a>
-                </li>
-
-            </ul>
-        </div>
-        <div className="bottom"></div>
+    <div className="sidebar">
+      <ul>
+        <li>Dashboard</li>
+        <li>Reports</li>
+        <li>Leads</li>
+        <li>Settings</li>
+      </ul>
     </div>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
