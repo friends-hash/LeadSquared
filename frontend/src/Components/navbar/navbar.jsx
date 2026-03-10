@@ -3,11 +3,15 @@ import './navbar.css'
 import { Search, Bell, Baseline, House, UserRound } from 'lucide-react'
 
 
-function Navbar() {
+function Navbar({ onNavigate }) {
   const [showLeadMenu, setShowLeadMenu] = React.useState(false);
 
   const toggleMenu = () => {
     setShowLeadMenu((prev) => !prev);
+  };
+
+  const handleSmartViewsClick = () => {
+    onNavigate('smart-views');
   };
 
   return (
@@ -23,7 +27,7 @@ function Navbar() {
         <li onClick={toggleMenu} className="has-dropdown">
           Lead Management
         </li>
-        <li>Smart Views</li>
+        <li onClick={handleSmartViewsClick}>Smart Views</li>
         <li>Leads</li>
         <li>Activities</li>
         <li>Tasks</li>
