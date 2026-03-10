@@ -210,9 +210,11 @@ function SmartViews() {
         <div className="floating-buttons">
           <button className="btn-floating-quick" title="Quick Add Lead">
             <Plus size={20} />
+            <span className="floating-text">Quick Add Leads</span>
           </button>
           <button className="btn-floating-new" title="Add New Lead">
             <Plus size={20} />
+            <span className="floating-text">Add New Leads</span>
           </button>
         </div>
       )}
