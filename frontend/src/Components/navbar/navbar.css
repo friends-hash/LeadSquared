@@ -1,0 +1,161 @@
+/* Navbar Container */
+
+.navbar {
+  height: 60px;
+  width: 100%;
+  background: #eef1f4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Logo */
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #5a6f8f;
+}
+
+/* Menu Container */
+
+.menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 22px;
+  margin: 0;
+  padding: 6px 18px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e3e6ea;
+}
+
+/* Menu items */
+
+.menu li {
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.menu li:hover {
+  color: #3a6ff7;
+}
+
+/* Home icon button */
+
+.menu li:first-child {
+  background: #3a6ff7;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Right Icons */
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #555;
+}
+
+.nav-icons a {
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.nav-icons a:hover {
+  color: #3a6ff7;
+}
+
+/* Profile Circle */
+
+.profile {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #e9edf3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #556;
+}
+
+/* Dropdown that appears under Lead Management */
+
+.lead-dropdown {
+  position: absolute;
+  top: 60px; /* height of navbar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  background: #ffffff;
+  border: 1px solid #e3e6ea;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  z-index: 100;
+}
+
+.lead-dropdown .dropdown-search {
+  margin-bottom: 12px;
+}
+
+.lead-dropdown .dropdown-search input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.lead-dropdown .dropdown-columns {
+  display: flex;
+  gap: 24px;
+}
+
+.lead-dropdown .column {
+  flex: 1;
+}
+
+.lead-dropdown .column.left ul,
+.lead-dropdown .column.right ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lead-dropdown .column.left li,
+.lead-dropdown .column.right li {
+  padding: 6px 0;
+  cursor: pointer;
+  color: #444;
+}
+
+.lead-dropdown .column.left li.active,
+.lead-dropdown .column.left li:hover,
+.lead-dropdown .column.right li:hover {
+  color: #3a6ff7;
+}
+
+.lead-dropdown .column.left li.active {
+  background: #e3e6ea;
+  border-radius: 4px;
+}
+
+.lead-dropdown .column.right h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #666;
+}
