@@ -1,10 +1,25 @@
 import React from "react";
 import "./smartviews.css";
-import { Search, Filter, ChevronDown, Plus, Mail, Phone, Calendar, User, MoreVertical } from "lucide-react";
+import { Search, Filter, ChevronDown, Plus, Mail, Phone, Calendar, User, MoreVertical, X } from "lucide-react";
 
 function SmartViews() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("My New Leads");
+  const [showModal, setShowModal] = React.useState(false);
+  const [errors, setErrors] = React.useState({});
+  const [formData, setFormData] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    company: "",
+    website: "",
+    leadSource: "",
+    doNotSMS: false,
+    doNotEmail: false,
+    doNotCall: false,
+    doNotTrack: false
+  });
 
   // Sample leads data with category flags
   const sampleLeads = [
@@ -92,6 +107,73 @@ function SmartViews() {
       case 'My Tasks': return '✓';
       default: return '';
     }
+  };
+
+  // Form validation
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First Name is required";
+    }
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last Name is required";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+    if (formData.phoneNumber && !/^\d{10,}$/.test(formData.phoneNumber.replace(/\D/g, ''))) {
+      newErrors.phoneNumber = "Phone number must be at least 10 digits";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle form input change
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+    // Clear error for this field
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log("Form submitted:", formData);
+      setShowModal(false);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        company: "",
+        website: "",
+        leadSource: "",
+        doNotSMS: false,
+        doNotEmail: false,
+        doNotCall: false,
+        doNotTrack: false
+      });
+    }
+  };
+
+  // Handle modal close
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setErrors({});
   };
 
   return (
@@ -192,11 +274,11 @@ function SmartViews() {
             <h3>No records added yet!</h3>
             <p>There are no {activeTab.toLowerCase()} at this time.</p>
             <div className="empty-actions">
-              <button className="btn-primary">
+              <button className="btn-primary" onClick={() => setShowModal(true)}>
                 <Plus size={16} />
                 Quick Add Lead
               </button>
-              <button className="btn-secondary">
+              <button className="btn-secondary" onClick={() => setShowModal(true)}>
                 <Plus size={16} />
                 Add New Lead
               </button>
@@ -208,14 +290,208 @@ function SmartViews() {
       {/* Floating Action Buttons */}
       {filteredLeads.length > 0 && (
         <div className="floating-buttons">
-          <button className="btn-floating-quick" title="Quick Add Lead">
+          <button className="btn-floating-quick" title="Quick Add Lead" onClick={() => setShowModal(true)}>
             <Plus size={20} />
             <span className="floating-text">Quick Add Leads</span>
           </button>
-          <button className="btn-floating-new" title="Add New Lead">
+          <button className="btn-floating-new" title="Add New Lead" onClick={() => setShowModal(true)}>
             <Plus size={20} />
             <span className="floating-text">Add New Leads</span>
           </button>
+        </div>
+      )}
+
+      {/* Modal Overlay and Form */}
+      {showModal && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Add New Lead</h2>
+              <button className="modal-close" onClick={handleCloseModal}>
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="modal-tabs">
+              <button className="modal-tab active">Lead Details</button>
+              <button className="modal-tab">Additional Details</button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="modal-form">
+              <div className="form-section">
+                <h3>Lead Details - Fields</h3>
+                
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      placeholder="Enter first name"
+                      className={errors.firstName ? 'error' : ''}
+                    />
+                    {errors.firstName && <span className="error-message">{errors.firstName}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      placeholder="Enter last name"
+                      className={errors.lastName ? 'error' : ''}
+                    />
+                    {errors.lastName && <span className="error-message">{errors.lastName}</span>}
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Enter email"
+                      className={errors.email ? 'error' : ''}
+                    />
+                    {errors.email && <span className="error-message">{errors.email}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="phoneNumber">Phone Number</label>
+                    <div className="phone-input">
+                      <span className="phone-prefix">+</span>
+                      <input
+                        type="text"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
+                        onChange={handleInputChange}
+                        placeholder="Enter phone number"
+                        className={errors.phoneNumber ? 'error' : ''}
+                      />
+                    </div>
+                    {errors.phoneNumber && <span className="error-message">{errors.phoneNumber}</span>}
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="company">Company</label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      placeholder="Enter company name"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      placeholder="Enter website"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-checkboxes">
+                  <div className="checkbox-group">
+                    <input
+                      type="checkbox"
+                      id="doNotSMS"
+                      name="doNotSMS"
+                      checked={formData.doNotSMS}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="doNotSMS">Do Not SMS</label>
+                  </div>
+                  <div className="checkbox-group">
+                    <input
+                      type="checkbox"
+                      id="doNotTrack"
+                      name="doNotTrack"
+                      checked={formData.doNotTrack}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="doNotTrack">Do Not Track</label>
+                  </div>
+                </div>
+
+                <div className="form-checkboxes">
+                  <div className="checkbox-group">
+                    <input
+                      type="checkbox"
+                      id="doNotEmail"
+                      name="doNotEmail"
+                      checked={formData.doNotEmail}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="doNotEmail">Do Not Email</label>
+                  </div>
+                  <div className="checkbox-group">
+                    <input
+                      type="checkbox"
+                      id="doNotCall"
+                      name="doNotCall"
+                      checked={formData.doNotCall}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="doNotCall">Do Not Call</label>
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="leadSource">Lead Source</label>
+                    <select
+                      id="leadSource"
+                      name="leadSource"
+                      value={formData.leadSource}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select</option>
+                      <option value="website">Website</option>
+                      <option value="referral">Referral</option>
+                      <option value="email">Email</option>
+                      <option value="phone">Phone</option>
+                      <option value="event">Event</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="sourceCampaign">Source Campaign</label>
+                    <input
+                      type="text"
+                      id="sourceCampaign"
+                      name="sourceCampaign"
+                      placeholder="Enter source campaign"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <button type="button" className="btn-cancel" onClick={handleCloseModal}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn-save">
+                  Save & Close
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>
