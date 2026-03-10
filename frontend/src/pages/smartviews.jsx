@@ -7,7 +7,9 @@ function SmartViews() {
   const [activeTab, setActiveTab] = React.useState("My New Leads");
   const [showAddLeadModal, setShowAddLeadModal] = React.useState(false);
   const [showQuickAddModal, setShowQuickAddModal] = React.useState(false);
+  const [activeModalTab, setActiveModalTab] = React.useState("Lead Details");
   const [errors, setErrors] = React.useState({});
+  const [additionalDetailsErrors, setAdditionalDetailsErrors] = React.useState({});
   const [quickAddErrors, setQuickAddErrors] = React.useState({});
 
   // Add New Lead Form Data
@@ -23,6 +25,24 @@ function SmartViews() {
     doNotEmail: false,
     doNotCall: false,
     doNotTrack: false
+  });
+
+  // Additional Details Form Data
+  const [additionalDetails, setAdditionalDetails] = React.useState({
+    designation: "",
+    industry: "",
+    numberOfEmployees: "",
+    annualRevenue: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    secondaryEmail: "",
+    secondaryPhone: "",
+    fax: "",
+    linkedinUrl: "",
+    notes: ""
   });
 
   // Quick Add Lead Form Data
@@ -147,6 +167,30 @@ function SmartViews() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Validate Additional Details
+  const validateAdditionalDetails = () => {
+    const newErrors = {};
+    
+    if (additionalDetails.secondaryEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(additionalDetails.secondaryEmail)) {
+      newErrors.secondaryEmail = "Invalid secondary email format";
+    }
+    if (additionalDetails.secondaryPhone && !/^\d{10,}$/.test(additionalDetails.secondaryPhone.replace(/\D/g, ''))) {
+      newErrors.secondaryPhone = "Secondary phone must be at least 10 digits";
+    }
+    if (additionalDetails.zipCode && !/^\d+$/.test(additionalDetails.zipCode)) {
+      newErrors.zipCode = "Zip code must contain only numbers";
+    }
+    if (additionalDetails.numberOfEmployees && !/^\d+$/.test(additionalDetails.numberOfEmployees)) {
+      newErrors.numberOfEmployees = "Number of employees must be a valid number";
+    }
+    if (additionalDetails.annualRevenue && !/^\d+(\.\d{2})?$/.test(additionalDetails.annualRevenue)) {
+      newErrors.annualRevenue = "Annual revenue must be a valid number";
+    }
+    
+    setAdditionalDetailsErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Handle form input change
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -163,32 +207,74 @@ function SmartViews() {
     }
   };
 
+  // Handle Additional Details input change
+  const handleAdditionalDetailsChange = (e) => {
+    const { name, value } = e.target;
+    setAdditionalDetails(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error for this field
+    if (additionalDetailsErrors[name]) {
+      setAdditionalDetailsErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
+    }
+  };
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted:", formData);
-      setShowModal(false);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phoneNumber: "",
-        company: "",
-        website: "",
-        leadSource: "",
-        doNotSMS: false,
-        doNotEmail: false,
-        doNotCall: false,
-        doNotTrack: false
-      });
+    
+    if (activeModalTab === "Lead Details") {
+      if (validateForm()) {
+        setActiveModalTab("Additional Details");
+      }
+    } else {
+      if (validateAdditionalDetails()) {
+        console.log("Form submitted:", { formData, additionalDetails });
+        setShowAddLeadModal(false);
+        setActiveModalTab("Lead Details");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phoneNumber: "",
+          company: "",
+          website: "",
+          leadSource: "",
+          doNotSMS: false,
+          doNotEmail: false,
+          doNotCall: false,
+          doNotTrack: false
+        });
+        setAdditionalDetails({
+          designation: "",
+          industry: "",
+          numberOfEmployees: "",
+          annualRevenue: "",
+          address: "",
+          city: "",
+          state: "",
+          zipCode: "",
+          country: "",
+          secondaryEmail: "",
+          secondaryPhone: "",
+          fax: "",
+          linkedinUrl: "",
+          notes: ""
+        });
+      }
     }
   };
 
   // Handle modal close
   const handleCloseModal = () => {
     setShowAddLeadModal(false);
+    setActiveModalTab("Lead Details");
     setErrors({});
+    setAdditionalDetailsErrors({});
   };
 
   // Quick Add Lead Validation
@@ -391,11 +477,22 @@ function SmartViews() {
             </div>
 
             <div className="modal-tabs">
-              <button className="modal-tab active">Lead Details</button>
-              <button className="modal-tab">Additional Details</button>
+              <button 
+                className={`modal-tab ${activeModalTab === "Lead Details" ? 'active' : ''}`}
+                onClick={() => setActiveModalTab("Lead Details")}
+              >
+                Lead Details
+              </button>
+              <button 
+                className={`modal-tab ${activeModalTab === "Additional Details" ? 'active' : ''}`}
+                onClick={() => setActiveModalTab("Additional Details")}
+              >
+                Additional Details
+              </button>
             </div>
 
             <form onSubmit={handleSubmit} className="modal-form">
+              {activeModalTab === "Lead Details" ? (
               <div className="form-section">
                 <h3>Lead Details - Fields</h3>
                 
@@ -559,14 +656,229 @@ function SmartViews() {
                   </div>
                 </div>
               </div>
+              ) : (
+              <div className="form-section">
+                <h3>Additional Details - Fields</h3>
+                
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="designation">Designation</label>
+                    <input
+                      type="text"
+                      id="designation"
+                      name="designation"
+                      value={additionalDetails.designation}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter designation"
+                      className={additionalDetailsErrors.designation ? 'error' : ''}
+                    />
+                    {additionalDetailsErrors.designation && <span className="error-message">{additionalDetailsErrors.designation}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="industry">Industry</label>
+                    <input
+                      type="text"
+                      id="industry"
+                      name="industry"
+                      value={additionalDetails.industry}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter industry"
+                      className={additionalDetailsErrors.industry ? 'error' : ''}
+                    />
+                    {additionalDetailsErrors.industry && <span className="error-message">{additionalDetailsErrors.industry}</span>}
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="numberOfEmployees">Number of Employees</label>
+                    <input
+                      type="text"
+                      id="numberOfEmployees"
+                      name="numberOfEmployees"
+                      value={additionalDetails.numberOfEmployees}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter number of employees"
+                      className={additionalDetailsErrors.numberOfEmployees ? 'error' : ''}
+                    />
+                    {additionalDetailsErrors.numberOfEmployees && <span className="error-message">{additionalDetailsErrors.numberOfEmployees}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="annualRevenue">Annual Revenue</label>
+                    <input
+                      type="text"
+                      id="annualRevenue"
+                      name="annualRevenue"
+                      value={additionalDetails.annualRevenue}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter annual revenue"
+                      className={additionalDetailsErrors.annualRevenue ? 'error' : ''}
+                    />
+                    {additionalDetailsErrors.annualRevenue && <span className="error-message">{additionalDetailsErrors.annualRevenue}</span>}
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="address">Address</label>
+                    <input
+                      type="text"
+                      id="address"
+                      name="address"
+                      value={additionalDetails.address}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter address"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="city">City</label>
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      value={additionalDetails.city}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter city"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="state">State</label>
+                    <input
+                      type="text"
+                      id="state"
+                      name="state"
+                      value={additionalDetails.state}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter state"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="zipCode">Zip Code</label>
+                    <input
+                      type="text"
+                      id="zipCode"
+                      name="zipCode"
+                      value={additionalDetails.zipCode}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter zip code"
+                      className={additionalDetailsErrors.zipCode ? 'error' : ''}
+                    />
+                    {additionalDetailsErrors.zipCode && <span className="error-message">{additionalDetailsErrors.zipCode}</span>}
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="country">Country</label>
+                    <input
+                      type="text"
+                      id="country"
+                      name="country"
+                      value={additionalDetails.country}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter country"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="secondaryEmail">Secondary Email</label>
+                    <input
+                      type="email"
+                      id="secondaryEmail"
+                      name="secondaryEmail"
+                      value={additionalDetails.secondaryEmail}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter secondary email"
+                      className={additionalDetailsErrors.secondaryEmail ? 'error' : ''}
+                    />
+                    {additionalDetailsErrors.secondaryEmail && <span className="error-message">{additionalDetailsErrors.secondaryEmail}</span>}
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="secondaryPhone">Secondary Phone</label>
+                    <div className="phone-input">
+                      <span className="phone-prefix">+</span>
+                      <input
+                        type="text"
+                        id="secondaryPhone"
+                        name="secondaryPhone"
+                        value={additionalDetails.secondaryPhone}
+                        onChange={handleAdditionalDetailsChange}
+                        placeholder="Enter secondary phone"
+                        className={additionalDetailsErrors.secondaryPhone ? 'error' : ''}
+                      />
+                    </div>
+                    {additionalDetailsErrors.secondaryPhone && <span className="error-message">{additionalDetailsErrors.secondaryPhone}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="fax">Fax</label>
+                    <input
+                      type="text"
+                      id="fax"
+                      name="fax"
+                      value={additionalDetails.fax}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter fax number"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="linkedinUrl">LinkedIn URL</label>
+                    <input
+                      type="text"
+                      id="linkedinUrl"
+                      name="linkedinUrl"
+                      value={additionalDetails.linkedinUrl}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Enter LinkedIn URL"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group full-width">
+                    <label htmlFor="notes">Notes</label>
+                    <textarea
+                      id="notes"
+                      name="notes"
+                      value={additionalDetails.notes}
+                      onChange={handleAdditionalDetailsChange}
+                      placeholder="Add additional notes about this lead..."
+                      rows={3}
+                    />
+                  </div>
+                </div>
+              </div>
+              )}
 
               <div className="modal-footer">
+                {activeModalTab === "Additional Details" && (
+                  <button 
+                    type="button" 
+                    className="btn-secondary" 
+                    onClick={() => setActiveModalTab("Lead Details")}
+                  >
+                    Back
+                  </button>
+                )}
                 <button type="button" className="btn-cancel" onClick={handleCloseModal}>
                   Cancel
                 </button>
-                <button type="submit" className="btn-save">
-                  Save & Close
-                </button>
+                {activeModalTab === "Lead Details" ? (
+                  <button type="submit" className="btn-save">
+                    Next
+                  </button>
+                ) : (
+                  <button type="submit" className="btn-save">
+                    Save & Close
+                  </button>
+                )}
               </div>
             </form>
           </div>
