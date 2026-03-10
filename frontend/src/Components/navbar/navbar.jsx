@@ -3,11 +3,16 @@ import './navbar.css'
 import { Search, Bell, Baseline, House, UserRound } from 'lucide-react'
 
 
-function Navbar() {
+function Navbar({ onNavigate, currentPage }) {
   const [showLeadMenu, setShowLeadMenu] = React.useState(false);
 
   const toggleMenu = () => {
     setShowLeadMenu((prev) => !prev);
+  };
+
+  const handleNavClick = (page) => {
+    onNavigate(page);
+    setShowLeadMenu(false);
   };
 
   return (
@@ -15,7 +20,7 @@ function Navbar() {
       <div className="logo">KavyaInfoweb</div>
 
       <ul className="menu">
-        <li>
+        <li onClick={() => handleNavClick('home')}>
           <a href="">
             <House />
           </a>
@@ -23,12 +28,12 @@ function Navbar() {
         <li onClick={toggleMenu} className="has-dropdown">
           Lead Management
         </li>
-        <li>Smart Views</li>
-        <li>Leads</li>
-        <li>Activities</li>
-        <li>Tasks</li>
-        <li>Lists</li>
-        <li>Analytics</li>
+        <li onClick={() => handleNavClick('smart-views')}>Smart Views</li>
+        <li onClick={() => handleNavClick('leads')}>Leads</li>
+        <li onClick={() => handleNavClick('activities')}>Activities</li>
+        <li onClick={() => handleNavClick('tasks')}>Tasks</li>
+        <li onClick={() => handleNavClick('lists')}>Lists</li>
+        <li onClick={() => handleNavClick('analytics')}>Analytics</li>
       </ul>
 
       <div className="nav-icons">
@@ -52,21 +57,21 @@ function Navbar() {
           <div className="dropdown-columns">
             <div className="column left">
               <ul>
-                <li className="active">Lead Management</li>
-                <li>Marketing</li>
-                <li>Content Library</li>
-                <li>Workflow</li>
-                <li>Apps</li>
+                <li className="active" onClick={() => handleNavClick('lead-management')}>Lead Management</li>
+                <li onClick={() => handleNavClick('marketing')}>Marketing</li>
+                <li onClick={() => handleNavClick('content-library')}>Content Library</li>
+                <li onClick={() => handleNavClick('workflow')}>Workflow</li>
+                <li onClick={() => handleNavClick('apps')}>Apps</li>
               </ul>
             </div>
             <div className="column right">
               <h4>Smart Views</h4>
               <ul>
-                <li>Leads</li>
-                <li>Activities</li>
-                <li>Tasks</li>
-                <li>Lists</li>
-                <li>Analytics</li>
+                <li onClick={() => handleNavClick('leads')}>Leads</li>
+                <li onClick={() => handleNavClick('activities')}>Activities</li>
+                <li onClick={() => handleNavClick('tasks')}>Tasks</li>
+                <li onClick={() => handleNavClick('lists')}>Lists</li>
+                <li onClick={() => handleNavClick('analytics')}>Analytics</li>
               </ul>
             </div>
           </div>
