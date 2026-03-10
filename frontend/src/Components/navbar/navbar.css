@@ -159,3 +159,167 @@
   font-size: 14px;
   color: #666;
 }
+
+/* Responsive Design for Navbar */
+
+/* Large screens */
+@media (max-width: 1200px) {
+  .lead-dropdown {
+    width: 580px;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 1024px) {
+  .menu {
+    gap: 18px;
+    padding: 6px 14px;
+  }
+
+  .lead-dropdown {
+    width: 550px;
+  }
+}
+
+/* Small tablet screens */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 8px 16px;
+    height: 56px;
+  }
+
+  .menu {
+    gap: 12px;
+    padding: 6px 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menu li {
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+
+  .lead-dropdown {
+    top: 56px;
+    width: 90vw;
+    max-width: 500px;
+  }
+
+  .lead-dropdown .dropdown-columns {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .lead-dropdown .column.right h4 {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e3e6ea;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 8px 12px;
+    height: 52px;
+  }
+
+  .logo {
+    font-size: 16px;
+    display: none; /* Hide logo on very small screens to save space */
+  }
+
+  .menu {
+    gap: 8px;
+    padding: 4px 8px;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .menu li {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  .menu li:first-child {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav-icons {
+    gap: 10px;
+  }
+
+  .nav-icons a {
+    padding: 6px;
+  }
+
+  .lead-dropdown {
+    top: 52px;
+    width: 95vw;
+    max-width: 400px;
+    padding: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Ensure dropdown doesn't go off-screen */
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+
+  .lead-dropdown .dropdown-search input {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .lead-dropdown .column.left li,
+  .lead-dropdown .column.right li {
+    padding: 8px 0;
+    font-size: 14px;
+  }
+
+  .lead-dropdown .column.right h4 {
+    font-size: 13px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .navbar {
+    padding: 6px 8px;
+  }
+
+  .menu {
+    gap: 4px;
+    padding: 4px 6px;
+  }
+
+  .menu li {
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+
+  .menu li:first-child {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav-icons {
+    gap: 8px;
+  }
+
+  .lead-dropdown {
+    width: 98vw;
+    max-width: 350px;
+    padding: 8px;
+  }
+
+  .lead-dropdown .dropdown-columns {
+    gap: 12px;
+  }
+}
