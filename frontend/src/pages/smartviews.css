@@ -989,51 +989,59 @@
   transform: scale(0.98);
 }
 
-/* Responsive Modal */
-@media (max-width: 768px) {
-  .modal-overlay {
-    padding: 16px;
-  }
+/* Quick Add Modal */
+.quick-add-modal {
+  max-width: 600px;
+}
 
-  .modal-content {
-    max-height: 95vh;
-  }
+.quick-add-modal .modal-header h2 {
+  font-size: 18px;
+}
 
-  .modal-header {
-    padding: 16px;
-  }
+/* Notes Editor */
+.notes-editor {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+}
 
-  .modal-header h2 {
-    font-size: 18px;
-  }
+.editor-toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
 
-  .modal-tabs {
-    padding: 0 16px;
-    gap: 16px;
-  }
+.toolbar-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
 
-  .modal-form {
-    padding: 16px;
-  }
+.toolbar-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
 
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
+.notes-editor textarea {
+  width: 100%;
+  border: none;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 100px;
+}
 
-  .form-checkboxes {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .modal-footer {
-    gap: 10px;
-    padding: 16px;
-  }
-
-  .btn-cancel,
-  .btn-save {
-    flex: 1;
-  }
+.notes-editor textarea:focus {
+  outline: none;
 }
