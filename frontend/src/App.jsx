@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Navbar from './Components/navbar/navbar'
 import Home from './pages/home'
 import SmartViews from './pages/smartviews'
+import Leads from './pages/leads'
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home')
@@ -15,6 +16,10 @@ const App = () => {
     switch(currentPage) {
       case 'smart-views':
         return <SmartViews />
+      case 'leads':
+        return <Leads />
+      case 'dashboard':
+        return <Home />
       default:
         return <Home />
     }
@@ -23,7 +28,6 @@ const App = () => {
   return (
     <>
       <Navbar onNavigate={handleNavigation} />
-      {/* <Sidebar /> */}
       {renderPage()}
 
     </>
