@@ -1,0 +1,237 @@
+.lists-page {
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HEADER */
+
+.lists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  border: 1px solid #3a6ff7;
+  background: white;
+  color: #3a6ff7;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: #3a6ff7;
+  color: white;
+}
+
+.btn-primary {
+  border: 1px solid #3a6ff7;
+  background: white;
+  color: #3a6ff7;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #3a6ff7;
+  color: white;
+}
+
+.icon-btn {
+  border: none;
+  background: #f2f4f8;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* FILTERS */
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  min-width: 140px;
+}
+
+/* TABLE */
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e4e6eb;
+  overflow-x: auto; /* important for mobile */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px; /* prevents table breaking */
+}
+
+thead {
+  background: #f5f6f8;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* TAGS */
+
+.tag {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.static {
+  background: #e8edf7;
+}
+
+.dynamic {
+  background: #e9e3ff;
+  color: #6a5acd;
+}
+
+/* FOOTER */
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 13px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* PAGINATION */
+
+.pagination {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.page-no {
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: #d0d2d4;
+}
+
+.pagination button {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 36px;
+}
+
+.pagination button:hover {
+  background: #3a6ff7;
+  color: white;
+  border: 1px solid #3a6ff7;
+}
+
+/* ========================= */
+/* TABLET RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 1024px) {
+
+  .lists-header h2 {
+    font-size: 18px;
+  }
+
+  .filters input,
+  .filters select {
+    min-width: 120px;
+  }
+
+}
+
+/* ========================= */
+/* MOBILE RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .lists-page {
+    padding: 12px;
+  }
+
+  .lists-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-buttons {
+    width: 100%;
+  }
+
+  .filters {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+  }
+
+  .table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+/* ========================= */
+/* SMALL MOBILE */
+/* ========================= */
+
+@media (max-width: 480px) {
+
+  th,
+  td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .btn-outline,
+  .btn-primary {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .pagination button {
+    width: 32px;
+  }
+
+}

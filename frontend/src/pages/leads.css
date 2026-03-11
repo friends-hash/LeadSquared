@@ -3,7 +3,8 @@
 .leads-container {
   background: #fff;
   padding: 20px;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -17,6 +18,7 @@
 
 .leads-toolbar {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   margin-bottom: 30px;
@@ -32,32 +34,31 @@
   border: 1px solid #c4c2c2;
   border-radius: 6px;
   padding: 6px 10px;
+  flex: 1;
+  min-width: 180px;
 }
 
 .search-box input {
   border: none;
   outline: none;
+  width: 100%;
+  background: transparent;
 }
 
 /* Buttons */
 
-.filter-btn {
-  background: #f5f6f8;
-  border: 1px solid #ddd;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
+.filter-btn,
 .add-filter-btn {
   background: #f5f6f8;
   border: 1px solid #ddd;
   padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
-/* Shared hover/animation for filter buttons */
+/* Hover Animation */
+
 .filter-btn,
 .add-filter-btn {
   transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
@@ -67,11 +68,8 @@
 .add-filter-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(23, 35, 66, 0.08);
+  background-color: #eef1f5;
 }
-
-/* Slight background adjustments on hover to give tactile feedback */
-.filter-btn:hover,
-.add-filter-btn:hover { background-color: #eef1f5; }
 
 /* Empty State */
 
@@ -83,10 +81,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: 20px;
 }
 
 .empty-state img {
   width: 120px;
+  max-width: 100%;
   margin-bottom: 20px;
 }
 
@@ -100,29 +101,11 @@
 .empty-buttons {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.quick-btn {
-  background: #3a6ff7;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  cursor: pointer;
-}
-
-.quick-btn:hover {
-  border: 1px solid #3a6ff7;
-  background: white;
-  color: #3a6ff7;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
+.quick-btn,
 .add-btn {
   background: #3a6ff7;
   color: white;
@@ -133,17 +116,89 @@
   gap: 6px;
   align-items: center;
   cursor: pointer;
+  transition: 0.2s;
 }
 
+.quick-btn:hover,
 .add-btn:hover {
-    border: 1px solid #3a6ff7;
-    background: white;
-    color: #3a6ff7;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
+  border: 1px solid #3a6ff7;
+  background: white;
+  color: #3a6ff7;
 }
 
+/* ================= RESPONSIVE ================= */
 
+/* Tablet */
 
+@media (max-width: 1024px) {
 
+  .leads-container {
+    padding: 18px;
+  }
+
+  .leads-header h2 {
+    font-size: 20px;
+  }
+
+  .search-box {
+    flex: 1 1 250px;
+  }
+
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .leads-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    width: 100%;
+    height: 20px;
+  }
+
+  
+
+  .filter-btn,
+  .add-filter-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .empty-state img {
+    width: 100px;
+  }
+
+}
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+  .leads-container {
+    padding: 15px;
+  }
+
+  .leads-header h2 {
+    font-size: 18px;
+  }
+
+  .search-box {
+    width: 100%;
+    height: 20px;
+  }
+
+  .empty-state img {
+    width: 80px;
+  }
+
+  .quick-btn,
+  .add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+}

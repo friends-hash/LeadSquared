@@ -4,6 +4,7 @@ import Navbar from './Components/navbar/navbar'
 import Home from './pages/home'
 import SmartViews from './pages/smartviews'
 import Leads from './pages/leads'
+import Lists from './pages/lists'
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home')
@@ -18,6 +19,8 @@ const App = () => {
         return <SmartViews />
       case 'leads':
         return <Leads />
+        case 'lists':
+        return <Lists />
       case 'dashboard':
         return <Home />
       default:
