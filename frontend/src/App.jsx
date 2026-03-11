@@ -20,7 +20,7 @@ const App = () => {
       case 'leads':
         return <Leads />
       case 'tasks':
-        return <Tasks />
+        return <Tasks onNavigate={handleNavigation} />
       case 'dashboard':
         return <Home />
       default:
