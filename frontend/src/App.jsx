@@ -4,6 +4,7 @@ import Navbar from './Components/navbar/navbar'
 import Home from './pages/home'
 import SmartViews from './pages/smartviews'
 import Leads from './pages/leads'
+import Tasks from './pages/tasks'
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home')
@@ -15,9 +16,11 @@ const App = () => {
   const renderPage = () => {
     switch(currentPage) {
       case 'smart-views':
-        return <SmartViews />
+        return <SmartViews onNavigate={handleNavigation} />
       case 'leads':
         return <Leads />
+      case 'tasks':
+        return <Tasks />
       case 'dashboard':
         return <Home />
       default:
