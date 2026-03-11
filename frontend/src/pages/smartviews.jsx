@@ -2,7 +2,7 @@ import React from "react";
 import "./smartviews.css";
 import { Search, Filter, ChevronDown, Plus, Mail, Phone, Calendar, User, MoreVertical, X, Bold, Italic, Underline, List, MoreHorizontal, Link2 } from "lucide-react";
 
-function SmartViews() {
+function SmartViews({ onNavigate }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("My New Leads");
   const [showAddLeadModal, setShowAddLeadModal] = React.useState(false);
@@ -355,7 +355,13 @@ function SmartViews() {
             <button
               key={tab}
               className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => {
+                setActiveTab(tab);
+                if (tab === 'My Tasks' && onNavigate) {
+                  // navigate to dedicated tasks page instead of staying on smart view
+                  onNavigate('tasks');
+                }
+              }}
             >
               <span className="tab-icon">{getTabIcon(tab)}</span>
               <span className="tab-label">{tab}</span>
