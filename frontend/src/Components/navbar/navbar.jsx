@@ -6,10 +6,28 @@ function Navbar({ onNavigate }) {
 
   const [showLeadMenu, setShowLeadMenu] = React.useState(false);
   const [activeMenu, setActiveMenu] = React.useState("lead");
+  const menuRef = React.useRef(null);
 
   const toggleMenu = () => {
     setShowLeadMenu(!showLeadMenu);
   };
+
+  // Close menu when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowLeadMenu(false);
+      }
+    };
+
+    if (showLeadMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showLeadMenu]);
 
   const menuItems = {
     lead: [
@@ -51,7 +69,10 @@ function Navbar({ onNavigate }) {
       <ul className="menu">
 
         {/* Home */}
-        <li onClick={() => onNavigate("dashboard")}>
+        <li onClick={() => {
+          onNavigate("dashboard");
+          setShowLeadMenu(false);
+        }}>
           <House />
         </li>
 
@@ -62,7 +83,10 @@ function Navbar({ onNavigate }) {
 
         {/* Dynamic Navbar Submenus */}
         {menuItems[activeMenu].map((item, index) => (
-          <li key={index} onClick={() => onNavigate(item.page)}>
+          <li key={index} onClick={() => {
+            onNavigate(item.page);
+            setShowLeadMenu(false);
+          }}>
             {item.label}
           </li>
         ))}
@@ -78,7 +102,7 @@ function Navbar({ onNavigate }) {
 
       {/* Dropdown Panel */}
       {showLeadMenu && (
-        <div className="lead-dropdown">
+        <div className="lead-dropdown" ref={menuRef}>
 
           {/* Search */}
           <div className="dropdown-search">
@@ -136,7 +160,10 @@ function Navbar({ onNavigate }) {
                 {menuItems[activeMenu].map((item, index) => (
                   <li
                     key={index}
-                    onClick={() => onNavigate(item.page)}
+                    onClick={() => {
+                      onNavigate(item.page);
+                      setShowLeadMenu(false);
+                    }}
                   >
                     {item.label}
                   </li>

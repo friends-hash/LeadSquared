@@ -16,7 +16,7 @@ const App = () => {
   const renderPage = () => {
     switch(currentPage) {
       case 'smart-views':
-        return <SmartViews />
+        return <SmartViews onNavigate={handleNavigation} />
       case 'leads':
         return <Leads />
         case 'lists':
