@@ -4,8 +4,7 @@ import Navbar from './Components/navbar/navbar'
 import Home from './pages/home'
 import SmartViews from './pages/smartviews'
 import Leads from './pages/leads'
-import Tasks from './pages/tasks'
-import Activities from './pages/activities'
+import Lists from './pages/lists'
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home')
@@ -20,10 +19,8 @@ const App = () => {
         return <SmartViews onNavigate={handleNavigation} />
       case 'leads':
         return <Leads />
-      case 'tasks':
-        return <Tasks onNavigate={handleNavigation} />
-      case 'activities':
-        return <Activities onNavigate={handleNavigation} />
+        case 'lists':
+        return <Lists />
       case 'dashboard':
         return <Home />
       default:
