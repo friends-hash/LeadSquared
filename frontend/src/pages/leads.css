@@ -1,0 +1,149 @@
+/* Main Container */
+
+.leads-container {
+  background: #fff;
+  padding: 20px;
+  height: calc(100vh - 60px);
+}
+
+/* Header */
+
+.leads-header h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+/* Toolbar */
+
+.leads-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* Search */
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #eef1f5;
+  border: 1px solid #c4c2c2;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+}
+
+/* Buttons */
+
+.filter-btn {
+  background: #f5f6f8;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-filter-btn {
+  background: #f5f6f8;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Shared hover/animation for filter buttons */
+.filter-btn,
+.add-filter-btn {
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.filter-btn:hover,
+.add-filter-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(23, 35, 66, 0.08);
+}
+
+/* Slight background adjustments on hover to give tactile feedback */
+.filter-btn:hover,
+.add-filter-btn:hover { background-color: #eef1f5; }
+
+/* Empty State */
+
+.empty-state {
+  background: #eef1f5;
+  border-radius: 10px;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state img {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+
+.empty-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.quick-btn {
+  background: #3a6ff7;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.quick-btn:hover {
+  border: 1px solid #3a6ff7;
+  background: white;
+  color: #3a6ff7;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-btn {
+  background: #3a6ff7;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+    border: 1px solid #3a6ff7;
+    background: white;
+    color: #3a6ff7;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+
+
