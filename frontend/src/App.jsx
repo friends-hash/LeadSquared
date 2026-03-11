@@ -5,6 +5,7 @@ import Home from './pages/home'
 import SmartViews from './pages/smartviews'
 import Leads from './pages/leads'
 import Tasks from './pages/tasks'
+import Activities from './pages/activities'
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home')
@@ -21,6 +22,8 @@ const App = () => {
         return <Leads />
       case 'tasks':
         return <Tasks onNavigate={handleNavigation} />
+      case 'activities':
+        return <Activities onNavigate={handleNavigation} />
       case 'dashboard':
         return <Home />
       default:
