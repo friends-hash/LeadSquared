@@ -7,6 +7,7 @@ import Leads from './pages/leads'
 import Lists from './pages/lists'
 import Activities from './pages/activities'
 import Tasks from './pages/tasks'
+import Analytics from './pages/analytics'
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home')
@@ -27,6 +28,8 @@ const App = () => {
         return <Activities onNavigate={handleNavigation} />
       case 'tasks':
         return <Tasks onNavigate={handleNavigation} />
+      case 'analytics':
+        return <Analytics />
       case 'dashboard':
         return <Home />
       default:
